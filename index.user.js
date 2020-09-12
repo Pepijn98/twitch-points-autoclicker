@@ -10,7 +10,7 @@
 
 // @homepageURL https://github.com/Pepijn98/twitch-points-autoclicker
 // @supportURL https://github.com/Pepijn98/twitch-points-autoclicker/issues
-// @updateURL https://github.com/Pepijn98/twitch-points-autoclicker/master/index.meta.js
+// @updateURL https://raw.githubusercontent.com/Pepijn98/twitch-points-autoclicker/master/index.meta.js
 // @downloadURL https://raw.githubusercontent.com/Pepijn98/twitch-points-autoclicker/master/index.user.js
 
 // @run-at document-end
