@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         Twitch.tv Channel Points Auto-clicker
-// @namespace    twitch-points-autoclicker
-// @version      1.0.0
-// @description  Auto-click the green channel point button for you
-// @author       Pepijn98
-// @match        *://*.twitch.tv/*
-// @match        *://twitch.tv/*
-// @grant        none
+// @name            Twitch.tv Channel Points Auto-clicker
+// @namespace       twitch-points-autoclicker
+// @version         1.0.1
+// @description     Auto-click the green channel point button for you
+// @author          Pepijn98
+// @match           *://*.twitch.tv/*
+// @match           *://twitch.tv/*
+// @grant           none
 
 // @homepageURL https://github.com/Pepijn98/twitch-points-autoclicker
 // @supportURL https://github.com/Pepijn98/twitch-points-autoclicker/issues
@@ -28,7 +28,7 @@
             // There should only be 1 button in this div so we can safely use [0] to get the first element
             const btn = div.getElementsByTagName("button")[0];
             // Emulate a click that collects our points :)
-            btn.click();
+            if (btn) btn.click();
         }
     }, 5000);
 })();
