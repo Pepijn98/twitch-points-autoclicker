@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name            Twitch.tv Channel Points Auto-clicker
 // @namespace       twitch-points-autoclicker
-// @version         1.0.2
+// @version         1.0.3
 // @description     Auto-click the green channel point button for you
 // @author          Pepijn98
-// @match           *://*.twitch.tv/*
-// @match           *://twitch.tv/*
-// @exclude         *://*.twitch.tv/*/clip/*
-// @exclude         *://twitch.tv/*/clip/*
+// @match           http*://*.twitch.tv/*
+// @exclude         http*://*.twitch.tv/videos/*
+// @exclude         http*://*.twitch.tv/*/clip/*
+// @exclude         http*://clips.twitch.tv/*
 // @grant           none
 
 // @homepageURL https://github.com/Pepijn98/twitch-points-autoclicker
