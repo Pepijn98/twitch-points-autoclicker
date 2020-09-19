@@ -32,12 +32,14 @@ function Interval() {
 
 /**
  * Start the interval
- * 
+ *
  * @param {(...args: any[]) => void} fn The function with all the stuff that needs to be done every interval
  * @param {number} duration The duration in milliseconds in which each interval happens
  * @param {boolean} initial Whether to imediatlly execute fn or wait the duration before executing fn for the first time
  */
-Interval.prototype.run = function(fn, duration, initial = false) {
+Interval.prototype.run = function(fn, duration, initial) {
+    if (!initial) initial = false;
+
     if (this.baseline === undefined) {
         this.baseline = new Date().getTime();
     }
@@ -48,12 +50,14 @@ Interval.prototype.run = function(fn, duration, initial = false) {
     var end = new Date().getTime();
     this.baseline += duration;
 
-    let nextTick = duration - (end - this.baseline);
+    var nextTick = duration - (end - this.baseline);
     if (nextTick < 0) {
         nextTick = 0;
     }
 
-    this.timer = setTimeout(() => this.run(fn, duration), nextTick);
+    this.timer = setTimeout(function() {
+        this.run(fn, duration)
+    }, nextTick);
     this.active = true;
 }
 
@@ -72,7 +76,7 @@ Interval.prototype.stop = function() {
     var interval = new Interval();
 
     // Check every 5 seconds if we can collect our points
-    interval.run(() => {
+    interval.run(function() {
         // Get all divs that are a direct child of community-points-summary
         var divs = document.querySelectorAll(".community-points-summary > div");
         // Get the div that has the button in it
