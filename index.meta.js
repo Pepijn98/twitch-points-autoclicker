@@ -5,11 +5,6 @@
 // @description     Auto-click the green channel point button for you
 // @author          Pepijn98
 // @match           https://www.twitch.tv/*
-// @exclude         https://www.twitch.tv/videos/*
-// @exclude         https://www.twitch.tv/*/clip/*
-// @exclude         https://clips.twitch.tv/*
-// @exclude         https://www.twitch.tv/directory
-// @exclude         https://www.twitch.tv/directory/*
 // @grant           none
 
 // @homepageURL https://github.com/Pepijn98/twitch-points-autoclicker
