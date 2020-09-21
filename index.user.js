@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Twitch.tv Channel Points Auto-clicker
 // @namespace       twitch-points-autoclicker
-// @version         1.2.0
+// @version         1.2.1
 // @description     Auto-click the green channel point button for you
 // @author          Pepijn98
 // @match           https://www.twitch.tv/*
@@ -23,49 +23,51 @@ function Interval() {
     this.baseline = undefined;
     this.timer = undefined;
     this.first = true;
-}
 
-/**
- * Start the interval
- *
- * @param {(...args: any[]) => void} fn The function with all the stuff that needs to be done every interval
- * @param {number} duration The duration in milliseconds in which each interval happens
- * @param {boolean} initial Whether to imediatlly execute fn or wait the duration before executing fn for the first time
- */
-Interval.prototype.run = function(fn, duration, initial) {
-    if (!initial) initial = false;
+    var self = this;
 
-    if (this.baseline === undefined) {
-        this.baseline = new Date().getTime();
+    /**
+     * Start the interval
+     *
+     * @param {(...args: any[]) => void} fn The function with all the stuff that needs to be done every interval
+     * @param {number} duration The duration in milliseconds in which each interval happens
+     * @param {boolean} initial Whether to imediatlly execute fn or wait the duration before executing fn for the first time
+     */
+    self.run = function(fn, duration, initial) {
+        if (!initial) initial = false;
+
+        if (self.baseline === undefined) {
+            self.baseline = new Date().getTime();
+        }
+
+        if ((initial && self.first) || !self.first) fn();
+        if (self.first) self.first = false;
+
+        var end = new Date().getTime();
+        self.baseline += duration;
+
+        var nextTick = duration - (end - self.baseline);
+        if (nextTick < 0) {
+            nextTick = 0;
+        }
+
+        self.timer = setTimeout(function() {
+            self.run(fn, duration)
+        }, nextTick);
+        self.active = true;
+    };
+
+    /**
+     * Stop the currently running interval if there is one
+     */
+    self.stop = function() {
+        if (self.timer) {
+            clearTimeout(self.timer);
+            self.timer = undefined;
+            self.active = false;
+        }
     }
-
-    if ((initial && this.first) || !this.first) fn();
-    if (this.first) this.first = false;
-
-    var end = new Date().getTime();
-    this.baseline += duration;
-
-    var nextTick = duration - (end - this.baseline);
-    if (nextTick < 0) {
-        nextTick = 0;
-    }
-
-    this.timer = setTimeout(function() {
-        this.run(fn, duration)
-    }, nextTick);
-    this.active = true;
-}
-
-/**
- * Stop the currently running interval if there is one
- */
-Interval.prototype.stop = function() {
-    if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = undefined;
-        this.active = false;
-    }
-}
+};
 
 (function() {
     var interval = new Interval();
